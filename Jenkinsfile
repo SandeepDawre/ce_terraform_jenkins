@@ -39,10 +39,12 @@ stage ("Terraform Destory") {
             echo "terraform destroy -var-file=tfvars/dev.tfvars"
          }    
 }
-
 //Terraform Stages finished 
-
-
-
   }
+      post { 
+        always { 
+            deleteDir()
+        }
+    }
 }
+
