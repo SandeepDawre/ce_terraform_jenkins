@@ -11,7 +11,7 @@ pipeline {
 stage ("Terraform Init ") {
       steps {
             echo "terraform init"
-            sh ('terraform init') 
+            sh ('terraform  -chdir=terraform init') 
          }
 }
 
