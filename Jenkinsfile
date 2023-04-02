@@ -3,6 +3,7 @@ pipeline {
   stages {
     stage ("Test Stage") {
       steps {
+        echo "Hello Test"
       }
     }
 //Terraform Stages started 
