@@ -41,10 +41,10 @@ stage ("Terraform Destory") {
 }
 //Terraform Stages finished 
   }
-      post { 
-        always { 
-            deleteDir()
-        }
-    }
+      //post { 
+        //always { 
+            //deleteDir()
+        //}
+    //}
 }
 
