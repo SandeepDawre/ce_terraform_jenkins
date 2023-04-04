@@ -41,7 +41,6 @@ pipeline {
                                                       name: 'Please confirm you agree with this']
                                           ])
                                     } catch(err) {
-                                    def user = err.getCauses()[0].getUser()
                                     userInput = false
                                     echo "Aborted by: [${user}]"
                                     }
