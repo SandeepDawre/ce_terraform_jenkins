@@ -26,7 +26,7 @@ pipeline {
                   }             
             }    
       }
-      stage ("Prompt for User Input & Apply") {
+      stage ("Terraform Apply") {
             when {
                   expression { 
                         (params.tf_action == 'apply')
@@ -91,7 +91,7 @@ pipeline {
                                                 echo "Destroying terraform"
                                                 sh ('terraform -chdir=terraform destroy -var-file=tfvars/dev.tfvars -auto-approve')
                                           } else {
-                                                echo "Terraform apply was not successful."
+                                                echo "Terraform destroy was not successful."
                                                 currentBuild.result = 'FAILURE'
                                           }
                               }
