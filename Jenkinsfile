@@ -21,7 +21,7 @@ stage ("Terraform Init ") {
 stage ("Terraform Plan") {
       steps {
             echo "terraform plan -var-file=tfvars/dev.tfvars"
-             sh ('terraform plan -var-file=tfvars/dev.tfvars') 
+             sh ('terraform plan -chdir=terraform -var-file=tfvars/dev.tfvars') 
          }    
 }
 
