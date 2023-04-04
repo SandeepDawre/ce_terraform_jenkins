@@ -1,5 +1,8 @@
 pipeline {
   agent any
+  environment {
+      TF_CLI_CONFIG_FILE="$JENKINS_HOME/.terraformrc"
+  }
   parameters {
       choice(name: 'tf_action', choices: ['apply', 'destroy', ], description: 'Please select terraform action to perform.')
   }
@@ -14,6 +17,7 @@ pipeline {
             steps {
                   withAWS(role:'test-role', credentials:'aws_test_user_cred', roleAccount:'182263511292', duration: 900, roleSessionName: 'jenkins-session') {
                         echo "Running terraform init command....."
+                        sh ('export ${env.TF_CLI_CONFIG_FILE}')
                         sh ('terraform  -chdir=terraform init') 
                   }
             }
