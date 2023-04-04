@@ -26,34 +26,36 @@ pipeline {
       }
       stage ("Prompt for User Input & Apply") {
             steps {
-                  withAWS(role:'test-role', credentials:'aws_test_user_cred', roleAccount:'182263511292', duration: 900, roleSessionName: 'jenkins-session') {            
-                        echo "Waiting for Input from User....."
-                        try {
-                              def userInput = input(
-                                    id: 'Confirm', 
-                                    message: 'Do you want to apply Terraform?', 
-                                    parameters: [
-                                                [$class: 'BooleanParameterDefinition', 
-                                                defaultValue: true, 
-                                                description: '', 
-                                                name: 'Please confirm you agree with this']
-                                    ])
-                              } catch(err) {
-                              def user = err.getCauses()[0].getUser()
-                              userInput = false
-                              echo "Aborted by: [${user}]"
-                              }
-                              //node {
-                              if (userInput == true) {
-                                    echo "Applying terraform"
-                              } else {
-                                    echo "Terraform apply was not successful."
-                                    currentBuild.result = 'FAILURE'
-                              }
-                              //}
+                  script{ 
+                        withAWS(role:'test-role', credentials:'aws_test_user_cred', roleAccount:'182263511292', duration: 900, roleSessionName: 'jenkins-session') {          
+                              echo "Waiting for Input from User....."
+                              try {
+                                    def userInput = input(
+                                          id: 'Confirm', 
+                                          message: 'Do you want to apply Terraform?', 
+                                          parameters: [
+                                                      [$class: 'BooleanParameterDefinition', 
+                                                      defaultValue: true, 
+                                                      description: '', 
+                                                      name: 'Please confirm you agree with this']
+                                          ])
+                                    } catch(err) {
+                                    def user = err.getCauses()[0].getUser()
+                                    userInput = false
+                                    echo "Aborted by: [${user}]"
+                                    }
+                                    //node {
+                                    if (userInput == true) {
+                                          echo "Applying terraform"
+                                    } else {
+                                          echo "Terraform apply was not successful."
+                                          currentBuild.result = 'FAILURE'
+                                    }
+                                    //}
                         }
-                  }       
-            }
+                  }     
+            }       
+      }
 
       stage ("Terraform Apply") {
             steps {
