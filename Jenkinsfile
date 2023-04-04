@@ -10,7 +10,6 @@ pipeline {
 
 stage ("Terraform Init ") {
       steps {
-
         withAWS(role:'test-role', credentials:'aws_test_user_cred', roleAccount:'182263511292', duration: 900, roleSessionName: 'jenkins-session') {
             echo "terraform init"
             sh ('terraform  -chdir=terraform init') 
@@ -20,8 +19,10 @@ stage ("Terraform Init ") {
 
 stage ("Terraform Plan") {
       steps {
+        withAWS(role:'test-role', credentials:'aws_test_user_cred', roleAccount:'182263511292', duration: 900, roleSessionName: 'jenkins-session') {            
             echo "terraform plan -var-file=tfvars/dev.tfvars"
              sh ('terraform -chdir=terraform plan -var-file=tfvars/dev.tfvars') 
+                }             
          }    
 }
 
