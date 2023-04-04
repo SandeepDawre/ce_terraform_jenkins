@@ -42,16 +42,14 @@ pipeline {
                                           ])
                                     } catch(err) {
                                     userInput = false
-                                    echo "Aborted by: [${user}]"
+                                    echo "Aborted by: ${env.BUILD_USER}"
                                     }
-                                    //node {
                                     if (userInput == true) {
                                           echo "Applying terraform"
                                     } else {
                                           echo "Terraform apply was not successful."
                                           currentBuild.result = 'FAILURE'
                                     }
-                                    //}
                         }
                   }     
             }       
