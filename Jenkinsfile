@@ -29,8 +29,9 @@ pipeline {
                   script{ 
                         withAWS(role:'test-role', credentials:'aws_test_user_cred', roleAccount:'182263511292', duration: 900, roleSessionName: 'jenkins-session') {          
                               echo "Waiting for Input from User....."
+                              def userInput
                               try {
-                                    def userInput = input(
+                                    userInput = input(
                                           id: 'Confirm', 
                                           message: 'Do you want to apply Terraform?', 
                                           parameters: [
