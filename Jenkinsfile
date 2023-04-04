@@ -46,6 +46,7 @@ pipeline {
                                     }
                                     if (userInput == true) {
                                           echo "Applying terraform"
+                                          sh ('terraform -chdir=terraform apply -var-file=tfvars/dev.tfvars -auto-approve')
                                     } else {
                                           echo "Terraform apply was not successful."
                                           currentBuild.result = 'FAILURE'
