@@ -10,8 +10,11 @@ pipeline {
 
 stage ("Terraform Init ") {
       steps {
+
+        withAWS(role:'test-role', roleAccount:'182263511292', duration: 900, roleSessionName: 'jenkins-session') {
             echo "terraform init"
             sh ('terraform  -chdir=terraform init') 
+                }
          }
 }
 
