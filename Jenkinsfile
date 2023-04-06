@@ -18,7 +18,7 @@ pipeline {
                   withAWS(role:'test-role', credentials:'aws_test_user_cred', roleAccount:'182263511292', duration: 900, roleSessionName: 'jenkins-session') {
                         echo "Running terraform init command....."
                         //sh ('export TF_CLI_CONFIG_FILE=/var/jenkins_home/.terraformrc')
-                        sh ('terraform  -chdir=terraform -plugin-dir=/var/jenkins_home/.terraform.d/plugin-cache/ init') 
+                        sh ('terraform  -chdir=terraform init -plugin-dir=/var/jenkins_home/.terraform.d/plugin-cache/') 
                   }
             }
       }
